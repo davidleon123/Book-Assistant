@@ -91,15 +91,15 @@ def load()->None:
 
 
 def main()->None:
-    load()
+    #load()
     question ="when do I have to declare  my taxes?"
     result = qa_chain({"query": question})
     print("The answer to the question is:")
     print(result["result"])
-    print("the source for the answer is:")
-    print(result["source_documents"][0])
-    print("The second source for the answer is:")
-    print(result["source_documents"][1], "...")
+    # print("the source for the answer is:")
+    # print(result["source_documents"][0])
+    # print("The second source for the answer is:")
+    # print(result["source_documents"][1], "...")
 
     #print(result["source_documents"][0])
 

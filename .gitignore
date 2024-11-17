@@ -1,0 +1,9 @@
+# VS Code directory
+.vscode/
+.mypy_cache/
+data/
+private/
+.venv/
+.env
+__pycache__/
+.DS_Store
