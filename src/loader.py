@@ -56,13 +56,13 @@ qa_chain = RetrievalQA.from_chain_type(
 )
 
 
-def load_data(file_path: str)->List[Document]:
+def _load_data(file_path: str)->List[Document]:
     loader = PyPDFLoader(file_path)
     docs = loader.load()
     return docs
 
 
-def split_data(documents: List[Document])->List[Document]:
+def _split_data(documents: List[Document])->List[Document]:
     text_splitter = RecursiveCharacterTextSplitter(
     chunk_size = 1500,
     chunk_overlap = 150
@@ -70,41 +70,28 @@ def split_data(documents: List[Document])->List[Document]:
     splits = text_splitter.split_documents(documents)
     return splits
 
-def add_documents(documents: List[Document])->List[str]:
+def _add_documents(documents: List[Document])->List[str]:
     ids = VECTORDB.add_documents(documents)
     return ids
 
 
-def loader()->None:
+def load()->None:
     doc_to_load_path = os.path.join(project_root, "irs.pdf")
-    docs = load_data(doc_to_load_path)
+    docs = _load_data(doc_to_load_path)
     print(len(docs))
     print(docs[0].page_content[0:10])
-    splits = split_data(docs)
+    splits = _split_data(docs)
     print(len(splits))
     print(splits[0].page_content[0:10])
-    ids = add_documents(splits)
+    ids = _add_documents(splits)
     print(ids)
-
     print(VECTORDB._collection.count())
 
 
 
 
-
-
-messages = [
-    (
-        "system",
-        "You are a helpful translator. Translate the user sentence to French.",
-    ),
-    ("human", "I love programming."),
-]
-
 def main()->None:
-    #loader()
-    #response = llm.generate("What is the capital of France?")
-    #print(response)
+    load()
     question ="when do I have to declare  my taxes?"
     result = qa_chain({"query": question})
     print("The answer to the question is:")
