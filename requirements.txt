@@ -3,3 +3,5 @@ langchain-chroma==0.1.4
 langchain-community==0.3.7
 pypdf==5.1.0
 langchain-openai==0.2.8
+django
+python-dotenv
