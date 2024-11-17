@@ -21,7 +21,7 @@ persist_directory = os.path.join(project_root, db_name) # where to store the dat
 
 EMBEDDING = OpenAIEmbeddings()
 
-vectordb = Chroma(
+VECTORDB = Chroma(
     persist_directory=persist_directory,
     embedding_function=EMBEDDING
 )
@@ -41,7 +41,9 @@ def split_data(documents: List[Document])->List[Document]:
     splits = text_splitter.split_documents(documents)
     return splits
 
-
+def add_documents(documents: List[Document])->List[str]:
+    ids = VECTORDB.add_documents(documents)
+    return ids
 
 
 def main()->None:
@@ -52,10 +54,10 @@ def main()->None:
     splits = split_data(docs)
     print(len(splits))
     print(splits[0].page_content[0:10])
-    ids = vectordb.add_documents(splits)
+    ids = add_documents(splits)
     print(ids)
 
-    print(vectordb._collection.count())
+    print(VECTORDB._collection.count())
 
 if __name__ == "__main__":
     main()
