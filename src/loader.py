@@ -1,10 +1,12 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING, List
 from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv, find_dotenv
+
+
 
 import os
 
@@ -46,7 +48,7 @@ def add_documents(documents: List[Document])->List[str]:
     return ids
 
 
-def main()->None:
+def loader()->None:
     doc_to_load_path = os.path.join(project_root, "irs.pdf")
     docs = load_data(doc_to_load_path)
     print(len(docs))
@@ -58,6 +60,38 @@ def main()->None:
     print(ids)
 
     print(VECTORDB._collection.count())
+
+llm = ChatOpenAI(
+    model="gpt-3.5-turbo",
+    temperature=0,
+    max_tokens=100
+)
+
+from langchain.chains import RetrievalQA
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm,
+    retriever=VECTORDB.as_retriever()
+)
+
+question ="when do I have to declare  my taxes?"
+result = qa_chain({"query": question})
+print(result)
+
+messages = [
+    (
+        "system",
+        "You are a helpful translator. Translate the user sentence to French.",
+    ),
+    ("human", "I love programming."),
+]
+
+def main()->None:
+    return
+    #loader()
+    #response = llm.generate("What is the capital of France?")
+    #print(response)
+    
 
 if __name__ == "__main__":
     main()
