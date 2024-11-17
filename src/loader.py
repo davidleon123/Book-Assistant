@@ -4,10 +4,10 @@ from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
+
 from dotenv import load_dotenv, find_dotenv
-
-
-
 import os
 
 if TYPE_CHECKING:
@@ -26,6 +26,33 @@ EMBEDDING = OpenAIEmbeddings()
 VECTORDB = Chroma(
     persist_directory=persist_directory,
     embedding_function=EMBEDDING
+)
+
+llm = ChatOpenAI(
+    model="gpt-3.5-turbo",
+    temperature=0,
+    max_tokens=100
+)
+
+
+# Build prompt
+template = """Use the following pieces of context to answer the question at the end.
+ If you don't know the answer, just say that you don't know, don't try to make up an answer. 
+ Use three sentences maximum. 
+ Keep the answer as concise as possible. 
+ Summarize the answer in less than 50 words.
+ Always say "thanks for asking!" at the end of the answer. 
+ Add at the end how many words you used to answer the question.
+{context}
+Question: {question}
+Helpful Answer:"""
+QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm,
+    retriever=VECTORDB.as_retriever(),
+    return_source_documents=True,
+    chain_type_kwargs={"prompt": QA_CHAIN_PROMPT}
 )
 
 
@@ -61,22 +88,10 @@ def loader()->None:
 
     print(VECTORDB._collection.count())
 
-llm = ChatOpenAI(
-    model="gpt-3.5-turbo",
-    temperature=0,
-    max_tokens=100
-)
 
-from langchain.chains import RetrievalQA
 
-qa_chain = RetrievalQA.from_chain_type(
-    llm,
-    retriever=VECTORDB.as_retriever()
-)
 
-question ="when do I have to declare  my taxes?"
-result = qa_chain({"query": question})
-print(result)
+
 
 messages = [
     (
@@ -87,10 +102,20 @@ messages = [
 ]
 
 def main()->None:
-    return
     #loader()
     #response = llm.generate("What is the capital of France?")
     #print(response)
+    question ="when do I have to declare  my taxes?"
+    result = qa_chain({"query": question})
+    print("The answer to the question is:")
+    print(result["result"])
+    print("the source for the answer is:")
+    print(result["source_documents"][0])
+    print("The second source for the answer is:")
+    print(result["source_documents"][1], "...")
+
+    #print(result["source_documents"][0])
+
     
 
 if __name__ == "__main__":
