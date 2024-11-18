@@ -89,22 +89,23 @@ def load()->None:
 
 DEBUG_ANSWER_PATH = os.path.join(project_root, "debug_answer.pkl")
 
-def answer_question(question: str)->Dict[str, Any]:
-    result = qa_chain({"query": question})
+
+def answer_question(question: str) -> Dict[str, Any]:
+    result = qa_chain.invoke({"query": question})
     return result
 
-def save_answer(result, file_path=DEBUG_ANSWER_PATH):
+def save_answer(result: Dict[str, Any], file_path: str = DEBUG_ANSWER_PATH) -> None:
     import pickle
     with open(file_path, 'wb') as file:
         pickle.dump(result, file)
 
-def load_answer(file_path=DEBUG_ANSWER_PATH): 
+def load_answer(file_path: str = DEBUG_ANSWER_PATH) -> Dict[str, Any]: 
     import pickle
     with open(file_path, 'rb') as file:
         result = pickle.load(file)
     return result
 
-def display_answer(result):
+def display_answer(result: Dict[str, Any]) -> None:
     print("The answer to the question is:")    
     print(result["result"])
     print("The source for the answer is:")
