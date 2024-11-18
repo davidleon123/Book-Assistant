@@ -18,7 +18,7 @@ load_dotenv(find_dotenv()) # read local .env file
 
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db_name = "data"
+db_name = "programming_DB"
 persist_directory = os.path.join(project_root, db_name) # where to store the database
 
 EMBEDDING = OpenAIEmbeddings()
@@ -76,7 +76,7 @@ def _add_documents(documents: List[Document])->List[str]:
 
 
 def load()->None:
-    doc_to_load_path = os.path.join(project_root, "irs.pdf")
+    doc_to_load_path = os.path.join(project_root, "book_upload", "Eloquent_JavaScript.pdf")
     docs = _load_data(doc_to_load_path)
     print(len(docs))
     print(docs[0].page_content[0:10])
@@ -105,27 +105,28 @@ def load_answer(file_path: str = DEBUG_ANSWER_PATH) -> Dict[str, Any]:
         result = pickle.load(file)
     return result
 
-def display_answer(result: Dict[str, Any], max_source_documents:int=2) -> None:
+def display_answer(result: Dict[str, Any], max_source_documents: int = 2) -> None:
     print("The answer to the question is:")    
     print(result["result"])
-    print("*"*50)
-    for i, doc in enumerate(result['source_documents'][:max_source_documents], start=1):        
+    print("*" * 50)
+    for i, doc in enumerate(result['source_documents'][:max_source_documents], start=1):
         print(f"Source document {i}:")
         print(os.path.basename(doc.metadata['source']))
         print("on page:")
         print(doc.metadata['page'])
-        print("The first 25 characters of the source are:")
-        print(doc.page_content[:25])
-        print("*"*50)
+        print("The first 25 words of the source are:")
+        first_25_words = ' '.join(doc.page_content.split()[:25])
+        print(first_25_words)
 
 def main()->None:
     #load()
-    question ="when do I have to declare  my taxes?"
-    # result = qa_chain({"query": question})
-    # display_answer(result)
-    # save_answer(result)
-    saved_answer = load_answer()
-    display_answer(saved_answer, )
+    #question ="when do I have to declare  my taxes?"
+    question ="what is a JavaScript closure?"
+    result = qa_chain({"query": question})
+    display_answer(result)
+    save_answer(result)
+    #saved_answer = load_answer()
+    #display_answer(saved_answer, )
     
 
 if __name__ == "__main__":
