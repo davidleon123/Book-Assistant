@@ -91,7 +91,7 @@ DEBUG_ANSWER_PATH = os.path.join(project_root, "debug_answer.pkl")
 
 
 def answer_question(question: str) -> Dict[str, Any]:
-    result = qa_chain.invoke({"query": question})
+    result = qa_chain({"query": question})
     return result
 
 def save_answer(result: Dict[str, Any], file_path: str = DEBUG_ANSWER_PATH) -> None:
@@ -105,32 +105,27 @@ def load_answer(file_path: str = DEBUG_ANSWER_PATH) -> Dict[str, Any]:
         result = pickle.load(file)
     return result
 
-def display_answer(result: Dict[str, Any]) -> None:
+def display_answer(result: Dict[str, Any], max_source_documents:int=2) -> None:
     print("The answer to the question is:")    
     print(result["result"])
-    print("The source for the answer is:")
-    print(os.path.basename(result['source_documents'][0].metadata['source']))
-    print("on page:")
-    print(result['source_documents'][0].metadata['page'])
-    print("The first 25 characters of the source are:")
-    print(result['source_documents'][0].page_content[:25])
+    print("*"*50)
+    for i, doc in enumerate(result['source_documents'][:max_source_documents], start=1):        
+        print(f"Source document {i}:")
+        print(os.path.basename(doc.metadata['source']))
+        print("on page:")
+        print(doc.metadata['page'])
+        print("The first 25 characters of the source are:")
+        print(doc.page_content[:25])
+        print("*"*50)
 
 def main()->None:
     #load()
     question ="when do I have to declare  my taxes?"
-    result = qa_chain({"query": question})
-    display_answer(result)
-    save_answer(result)
+    # result = qa_chain({"query": question})
+    # display_answer(result)
+    # save_answer(result)
     saved_answer = load_answer()
-    display_answer(saved_answer)
-    
-    # print("the source for the answer is:")
-    # print(result["source_documents"][0])
-    # print("The second source for the answer is:")
-    # print(result["source_documents"][1], "...")
-
-    #print(result["source_documents"][0])
-
+    display_answer(saved_answer, )
     
 
 if __name__ == "__main__":
