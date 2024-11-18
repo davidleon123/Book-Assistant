@@ -30,19 +30,21 @@ VECTORDB = Chroma(
 
 llm = ChatOpenAI(
     model="gpt-3.5-turbo",
-    temperature=0,
+    temperature=0.3,
     max_tokens=100
 )
 
 
 # Build prompt
-template = """Use the following pieces of context to answer the question at the end.
+template = """You are teaching programming. Use the following pieces of context to answer the question at the end.
  If you don't know the answer, just say that you don't know, don't try to make up an answer. 
  Use three sentences maximum. 
  Keep the answer as concise as possible. 
- Summarize the answer in less than 50 words.
- Always say "thanks for asking!" at the end of the answer. 
- Add at the end how many words you used to answer the question.
+ Always give a positive word of encouragement to the student after your answer, extolling
+ the virtue of educating oneself or of how exciting it is to be a programmer. 
+ Summarize the answer in less than 70 words.
+ Add at the very end say how many words you used to answer the question.
+ 
 {context}
 Question: {question}
 Helpful Answer:"""
@@ -75,8 +77,8 @@ def _add_documents(documents: List[Document])->List[str]:
     return ids
 
 
-def load()->None:
-    doc_to_load_path = os.path.join(project_root, "book_upload", "Eloquent_JavaScript.pdf")
+def load(book_name:str)->None:
+    doc_to_load_path = os.path.join(project_root, "book_upload", book_name)
     docs = _load_data(doc_to_load_path)
     print(len(docs))
     print(docs[0].page_content[0:10])
@@ -84,7 +86,7 @@ def load()->None:
     print(len(splits))
     print(splits[0].page_content[0:10])
     ids = _add_documents(splits)
-    print(ids)
+    print(len(ids))
     print(VECTORDB._collection.count())
 
 DEBUG_ANSWER_PATH = os.path.join(project_root, "debug_answer.pkl")
@@ -105,7 +107,7 @@ def load_answer(file_path: str = DEBUG_ANSWER_PATH) -> Dict[str, Any]:
         result = pickle.load(file)
     return result
 
-def display_answer(result: Dict[str, Any], max_source_documents: int = 2) -> None:
+def display_answer(result: Dict[str, Any], max_source_documents: int = 5) -> None:
     print("The answer to the question is:")    
     print(result["result"])
     print("*" * 50)
@@ -118,14 +120,20 @@ def display_answer(result: Dict[str, Any], max_source_documents: int = 2) -> Non
         first_25_words = ' '.join(doc.page_content.split()[:25])
         print(first_25_words)
 
+questions = ["what is a javascript closure?",
+            "how to get started with javascript?",
+            "how to use CSS with javascript?",
+            "how to reverse an array?",
+            ]
+
 def main()->None:
-    #load()
-    #question ="when do I have to declare  my taxes?"
-    question ="what is a JavaScript closure?"
-    result = qa_chain({"query": question})
+    #load('Coding with JavaScript For Dummies.pdf')
+    # question ="what is a JavaScript closure?"
+    print(questions[3])
+    result = qa_chain({"query": questions[3]})
     display_answer(result)
     save_answer(result)
-    #saved_answer = load_answer()
+    # #saved_answer = load_answer()
     #display_answer(saved_answer, )
     
 
