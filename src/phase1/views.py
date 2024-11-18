@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
@@ -25,6 +25,8 @@ def generate_answer(question):
 
 def index(request):
     if request.method == 'POST':
+        if 'clear' in request.POST:
+            return redirect('index')
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.cleaned_data['question']
