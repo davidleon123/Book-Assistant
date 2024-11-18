@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Dict, Any
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.document_loaders import PyPDFLoader
@@ -87,15 +87,42 @@ def load()->None:
     print(ids)
     print(VECTORDB._collection.count())
 
+DEBUG_ANSWER_PATH = os.path.join(project_root, "debug_answer.pkl")
 
+def answer_question(question: str)->Dict[str, Any]:
+    result = qa_chain({"query": question})
+    return result
 
+def save_answer(result, file_path=DEBUG_ANSWER_PATH):
+    import pickle
+    with open(file_path, 'wb') as file:
+        pickle.dump(result, file)
+
+def load_answer(file_path=DEBUG_ANSWER_PATH): 
+    import pickle
+    with open(file_path, 'rb') as file:
+        result = pickle.load(file)
+    return result
+
+def display_answer(result):
+    print("The answer to the question is:")    
+    print(result["result"])
+    print("The source for the answer is:")
+    print(os.path.basename(result['source_documents'][0].metadata['source']))
+    print("on page:")
+    print(result['source_documents'][0].metadata['page'])
+    print("The first 25 characters of the source are:")
+    print(result['source_documents'][0].page_content[:25])
 
 def main()->None:
     #load()
     question ="when do I have to declare  my taxes?"
     result = qa_chain({"query": question})
-    print("The answer to the question is:")
-    print(result["result"])
+    display_answer(result)
+    save_answer(result)
+    saved_answer = load_answer()
+    display_answer(saved_answer)
+    
     # print("the source for the answer is:")
     # print(result["source_documents"][0])
     # print("The second source for the answer is:")
