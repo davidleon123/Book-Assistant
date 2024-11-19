@@ -108,18 +108,24 @@ def load_answer(file_path: str = DEBUG_ANSWER_PATH) -> Dict[str, Any]:
         result = pickle.load(file)
     return result
 
-def display_answer(result: Dict[str, Any], max_source_documents: int = 5) -> None:
-    print("The answer to the question is:")    
-    print(result["result"])
-    print("*" * 50)
+def format_answer(result: Dict[str, Any], max_source_documents: int = 5, max_num_words=25) -> str:
+    output = []
+    output.append("The answer to the question is:")    
+    output.append(result["result"])
+    output.append("*" * 50)
     for i, doc in enumerate(result['source_documents'][:max_source_documents], start=1):
-        print(f"Source document {i}:")
-        print(os.path.basename(doc.metadata['source']))
-        print("on page:")
-        print(doc.metadata['page'])
-        print("The first 25 words of the source are:")
-        first_25_words = ' '.join(doc.page_content.split()[:25])
-        print(first_25_words)
+        output.append(f"Source document {i}:")
+        output.append(os.path.basename(doc.metadata['source']))
+        output.append("on page:")
+        output.append(str(doc.metadata['page']))
+        output.append("The first 25 words of the source are:")
+        first_25_words = ' '.join(doc.page_content.split()[:max_num_words])
+        output.append(first_25_words)
+    
+    return "\n".join(output)
+
+def display_answer(result: Dict[str, Any]) -> None:
+    print(format_answer(result))
 
 questions = ["what is a javascript closure?",
             "how to get started with javascript?",
