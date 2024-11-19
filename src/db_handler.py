@@ -108,7 +108,7 @@ def load_answer(file_path: str = DEBUG_ANSWER_PATH) -> Dict[str, Any]:
         result = pickle.load(file)
     return result
 
-def format_answer(result: Dict[str, Any], max_source_documents: int = 5, max_num_words=25) -> str:
+def format_answer(result: Dict[str, Any], max_source_documents: int = 5, max_num_words:int=25) -> str:
     output = []
     output.append("The answer to the question is:")    
     output.append(result["result"])
