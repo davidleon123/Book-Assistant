@@ -39,11 +39,11 @@ llm = ChatOpenAI(
 template = """You are teaching programming. Use the following pieces of context to answer the question at the end.
  If you don't know the answer, just say that you don't know, don't try to make up an answer. 
  Use three sentences maximum. 
- Keep the answer as concise as possible. 
+ Keep the answer as concise as possible. Use no more than 70 words and say how many words you used.
  Always give a positive word of encouragement to the student after your answer, extolling
  the virtue of educating oneself or of how exciting it is to be a programmer. 
- Summarize the answer in less than 70 words.
- Add at the very end say how many words you used to answer the question.
+ Give this encouragement without preceding with the mention `encouragement:`.
+ 
  
 {context}
 Question: {question}
@@ -93,7 +93,8 @@ DEBUG_ANSWER_PATH = os.path.join(project_root, "debug_answer.pkl")
 
 
 def answer_question(question: str) -> Dict[str, Any]:
-    result = qa_chain({"query": question})
+    #result = qa_chain({"query": question})
+    result = qa_chain.invoke({"query": question})
     return result
 
 def save_answer(result: Dict[str, Any], file_path: str = DEBUG_ANSWER_PATH) -> None:
@@ -125,16 +126,17 @@ questions = ["what is a javascript closure?",
             "how to use CSS with javascript?",
             "how to reverse an array?",
             ]
+question = questions[0]
 
 def main()->None:
     #load('Coding with JavaScript For Dummies.pdf')
-    # question ="what is a JavaScript closure?"
-    print(questions[3])
-    result = qa_chain({"query": questions[3]})
-    display_answer(result)
-    save_answer(result)
-    # #saved_answer = load_answer()
-    #display_answer(saved_answer, )
+    
+    print(question)
+    answer = answer_question(question)
+    display_answer(answer)
+    save_answer(answer)
+    #saved_answer = load_answer()
+    #display_answer(saved_answer)
     
 
 if __name__ == "__main__":
