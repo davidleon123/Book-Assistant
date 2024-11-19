@@ -1,15 +1,31 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
+import db_handler as db
 
-def helper():
-    return "B"
+from .forms import QuestionForm
 
 
-def home(request):
+def generate_answer(question):
+    #answer = f"Answer to: {question}"
+    #answer = db.answer_question(question)
+    answer = db.load_answer()
+    return db.format_answer(answer)
+    #return answer
+
+
+def index(request):
+    if request.method == 'POST':
+        if 'clear' in request.POST:
+            return redirect('index')
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.cleaned_data['question']
+            answer = generate_answer(question)
+            # pass the answer to the context
+            return render(request, 'phase1/index.html', {'form': form, 'answer': answer})
+    else:
+        form = QuestionForm()
     
-    context = {"a": helper()}
-    return render(request, "phase1/home.html", context)
-
-
+    return render(request, 'phase1/index.html', {'form': form})
