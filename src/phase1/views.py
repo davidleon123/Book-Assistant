@@ -11,14 +11,9 @@ def generate_answer(question):
     #answer = f"Answer to: {question}"
     #answer = db.answer_question(question)
     answer = db.load_answer()
-<<<<<<< HEAD
     #return db.format_answer(answer)
     #breakpoint()
     return answer
-=======
-    return db.format_answer(answer)
-    #return answer
->>>>>>> origin/main
 
 
 def index(request):
