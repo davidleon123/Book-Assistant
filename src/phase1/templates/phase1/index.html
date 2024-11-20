@@ -4,9 +4,22 @@
     <!-- Minified version -->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <title>Question Form</title>
+    <style>
+        body {
+            background-color: rgba(201, 235, 224, 0.559);
+            
+        }
+        header.top-header { background-color: rgb(179, 201, 201);
+        }
+        ul.source {
+            border: 2px solid rgb(110, 181, 168);
+            border-radius: 2%;
+            border-style: dashed;
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <header class="top-header">
     <h1>AI Book Assistant</h1>
     </header>
     <main>
@@ -18,25 +31,32 @@
         <button type="submit" name="clear">Clear</button>
     </form>
     {% if answer %}
-        <h2>Answer:</h2>
-        <p>
-        {{ answer.result }}
-        </p>
-
-        <ul>
+    <div class="answer-container">
+        <div>
+            <h2>Answer:</h2>
+            <p>{{ answer.result }}</p>
+        </div>
+        <ul class="source">
+            <h3>Source</h3>
             {% for value in answer.source_documents %}
-                {% autoescape off %}
-                <li>source: {{ value.source }}</li>
-                <li>page: {{value.page}}</li>
-                <li>first 25 words: {{value.first_25_words}}</li>
-                {% endautoescape %}
+                <div>
+                    {% autoescape off %}
+                    <li>source: {{ value.source }}</li>
+                    <ul>
+                        <li>page: {{value.page}}</li>
+                        <li>first 25 words: {{value.first_25_words}}</li>
+                    </ul>
+                    {% endautoescape %}
+                </div>
+                <br>
             {% endfor %}
         </ul>
+    </div>
         
     {% endif %}
     </main>
     <footer>
-        <p>Reading from Eloquent_JavaScript.pdf and Coding with JavaScript For Dummies.pdf  </p>
+        <p>Read it from Eloquent_JavaScript.pdf and Coding with JavaScript For Dummies.pdf  </p>
     </footer>
 </body>
 </html>
