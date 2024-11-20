@@ -124,6 +124,20 @@ def format_answer(result: Dict[str, Any], max_source_documents: int = 5, max_num
     
     return "\n".join(output)
 
+
+def format_answer_django(result: Dict[str, Any], max_source_documents: int = 5, max_num_words: int = 25) -> Dict[str, Any]:
+    output = {"result": result["result"], "source_documents": []}
+    
+    for doc in result['source_documents'][:max_source_documents]:
+        doc_info = {
+            'source': os.path.basename(doc.metadata['source']),
+            'page': str(doc.metadata['page']),
+            'first_25_words': ' '.join(doc.page_content.split()[:max_num_words])
+        }
+        output['source_documents'].append(doc_info)
+        
+    return output
+
 def display_answer(result: Dict[str, Any]) -> None:
     print(format_answer(result))
 

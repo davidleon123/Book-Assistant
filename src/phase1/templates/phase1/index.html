@@ -26,7 +26,9 @@
         <ul>
             {% for value in answer.source_documents %}
                 {% autoescape off %}
-                <li>{{ value }}</li>
+                <li>source: {{ value.source }}</li>
+                <li>page: {{value.page}}</li>
+                <li>first 25 words: {{value.first_25_words}}</li>
                 {% endautoescape %}
             {% endfor %}
         </ul>
