@@ -19,7 +19,18 @@
     </form>
     {% if answer %}
         <h2>Answer:</h2>
-        <p class="answer">{{ answer }}</p>
+        <p>
+        {{ answer.result }}
+        </p>
+
+        <ul>
+            {% for value in answer.source_documents %}
+                {% autoescape off %}
+                <li>{{ value }}</li>
+                {% endautoescape %}
+            {% endfor %}
+        </ul>
+        
     {% endif %}
     </main>
     <footer>
