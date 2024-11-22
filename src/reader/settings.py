@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import socket
 
 load_dotenv()
 
@@ -27,13 +28,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--vdawxap(t_*2(kfc153r+#c3*rsws$a$da#ft9i76h#)6lb(r'
+#SECRET_KEY = 'django-insecure--vdawxap(t_*2(kfc153r+#c3*rsws$a$da#ft9i76h#)6lb(r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+if socket.gethostname().startswith('vps'):
 
+    DEBUG = False
+    ALLOWED_HOSTS = ['57.129.4.4']
+    load_dotenv(dotenv_path=BASE_DIR/".env")  #poner key 
+    STATIC_ROOT = "/home/ubuntu/ai-server/ai-server/media/"  #ai-server o book-assistant???
+    STATIC_URL = "/static/"
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = []
+    SECRET_KEY = 'django-insecure--vdawxap(t_*2(kfc153r+#c3*rsws$a$da#ft9i76h#)6lb(r'
+    
+    STATIC_URL = 'static/'
+
+# This will change
+ENGINE = 'django.db.backends.sqlite3'
+NAME = 'db.sqlite3'
 
 # Application definition
 
