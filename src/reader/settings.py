@@ -36,7 +36,8 @@ if socket.gethostname().startswith('vps'):
 
     DEBUG = False
     ALLOWED_HOSTS = ['57.129.4.4']
-    load_dotenv(dotenv_path=BASE_DIR/".env")  #poner key 
+    load_dotenv(dotenv_path=BASE_DIR/".env")
+    SECRET_KEY = os.getenv("SECRET_KEY")
     STATIC_ROOT = "/home/ubuntu/ai-server/ai-server/media/"  #ai-server o book-assistant???
     STATIC_URL = "/static/"
 else:
