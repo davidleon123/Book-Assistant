@@ -3,7 +3,7 @@
 
 ## Application Description
 
-It is a web-based application that provides an easy-to-use RAG applications to allow students to learn class material more quickly.
+We built a web-based application that provides an easy-to-use RAG application to allow students to learn class material more quickly.
 
 The application can be accessed at [Book Assistant](https://ai-demo.fr)
 
@@ -18,11 +18,12 @@ From the point of view of the student, they have a very simple yet clear user in
 The emphasis is here on the cost effectiveness and ease-of-use of the system.
 
 For demonstration purposes, the application is currently using two freely available javascript books. Questions should thus be about Javascript. If a question is not about Javascript or if the answer cannot be found in the source material, the RAG will answer that it does not know.
-Questions end with a word of encouragement for the student to keep learning.
+
+Answers end with a word of encouragement for the student to keep learning.
 
 ## Technical solution
 
-The solution is based on open-source components. It is using chroma as a vector database, langchain to build the RAG chain and Django as a front end.
+The solution is based on open-source components. It is using chroma as a vector database, langchain to build the RAG chain and Django as a front end. The RAG chain is currently made of the chroma database chained to a call to the GPT3.5 API. In future, the API could possibly be replace with a small edge LLM.
 
 The solution is hosted in a virtual private server on the cloud.
 
@@ -36,15 +37,23 @@ This is meant as a low-cost solution for schools or institutions scaling to hund
 
 As the application is built on free Open Source components, there is no upfront cost to deploying the system.
 
-The cost for the virtual private server is around 3€/month, which is about 3 cents per student per month on the assumption of the systeme being used in an institution of 100 students.
+The cost for the virtual private server is around 5$ per month, which is about 5 cents per student per month on the assumption of the systeme being used in an institution of 100 students.
+
+For the LLM part of the RAG chain, assuming the use of the GPT 3.5 API at prices around 0.00015$ per 1K tokens, a use of around 500 tokens per request and 50 requests per student per day, the cost per student per month would thus be around 10 cents.
+
+A ballpark estimate of the system cost (server + API usage) would thus be around 15 cents per student per month. The total cost for a school with 100 students would thus be around 15$ per month.
 
 
 
 ## future work
 
-- In the web application, add a sign up logging in for students and teachers
+- In the web application, add a sign up and logging in for students and teachers
+
 - Add in the web application, the possibility for teachers to upload new materials
+
 - Add the selection of different databases for different classes 
-- Try different LLMs in the RAG chain
-- Benchmarking load and response time of the server with increased number of users
+
+- Try if a small LLM model could run in the server instead of using an LLM API
+
+- Benchmarking load and response time of the server with increasing numbers of users
 
