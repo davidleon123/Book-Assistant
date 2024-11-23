@@ -3,9 +3,9 @@
 
 ## Application Description
 
-We built a web-based application that provides an easy-to-use RAG application to allow students to learn class material more quickly.
+We built a web-based application that provides an easy-to-use RAG to allow students to learn class material more quickly.
 
-The application can be accessed at [Book Assistant](https://ai-demo.fr)
+It can be accessed at [Book Assistant](https://ai-demo.fr)
 
 This submission demonstrates that it is possible to enhance class material at a very low-cost to the great benefit of students around the world.
 
