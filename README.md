@@ -80,8 +80,8 @@ https://github.com/davidleon123/Book-Assistant.git
 
 ## Team members
 
-[David Leon](https://github.com/davidleon123)
 [Dea María Léon](https://github.com/DeaMariaLeon)
+[David Leon](https://github.com/davidleon123)
 
 ## Tech stack
 
@@ -89,8 +89,10 @@ Chroma
 Langchain
 GPT3.5 API
 Django
+Linux
+nginx
+gunicorn
 Simplecss
 css
 html
 Python
-Linux
