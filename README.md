@@ -23,7 +23,7 @@ For demonstration purposes, the application is currently using two freely availa
 
 Answers end with a word of encouragement for the student to keep learning.
 
-## Thecnical Category
+## Technical Category
 
 Build
 
