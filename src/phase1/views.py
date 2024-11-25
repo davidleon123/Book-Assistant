@@ -9,8 +9,8 @@ from .forms import QuestionForm
 
 def generate_answer(question):
     
-    answer = db.answer_question(question)
-    #answer = db.load_answer()
+    #answer = db.answer_question(question)
+    answer = db.load_answer()
     return db.format_answer_django(answer)
   
 

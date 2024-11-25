@@ -3,27 +3,46 @@
 <head>
     <!-- Minified version -->
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    {% load static %}
     <title>Question Form</title>
     <style>
+        
         body {
-            background-color: rgba(201, 235, 224, 0.559);
             
+            background-color: rgba(201, 235, 224, 0.559);
+            background-image: url("{% static 'phase1/library2.svg' %}");
+            background-repeat: no-repeat;
+            background-size: cover; 
+            background-position: center; 
         }
         header.top-header { background-color: rgb(179, 201, 201);
+        }
+        .answer-container {
+            background-color: rgba(200, 200, 200); /* Gray background with some transparency */
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
         }
         ul.source {
             border: 2px solid rgb(110, 181, 168);
             border-radius: 2%;
             border-style: dashed;
+            background-color: rgba(200, 200, 200, 0.8);
+        }
+        h2.question, p {
+            color: rgb(17, 16, 16);
+            background-color: rgba(200, 200, 200, 0.8);
         }
     </style>
 </head>
 <body>
+    
+    
     <header class="top-header">
     <h1>AI Book Assistant</h1>
     </header>
     <main>
-        <h2>Enter your Javascript question:</h2>
+        <h2 class="question">Enter your Javascript question:</h2>
     <form method="post">
         {% csrf_token %}
         {{ form }}
@@ -56,7 +75,9 @@
     {% endif %}
     </main>
     <footer>
-        <p>Read it from Eloquent_JavaScript.pdf and Coding with JavaScript For Dummies.pdf  </p>
+        <h4>
+        <p>Available Books: Eloquent_JavaScript and Coding with JavaScript For Dummies  </p>
+    </h4>
     </footer>
 </body>
 </html>
