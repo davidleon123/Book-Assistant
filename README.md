@@ -1,5 +1,5 @@
 # Submission NUMHACK-2024 build category
-# Book Assistant
+# Project Name: Book Assistant
 
 ## Application Description
 
@@ -7,7 +7,7 @@ We built a web-based application that provides an easy-to-use RAG to allow stude
 
 One of the benefits of using the RAG instead of having students use an LLM chatboat like chatGPT is that the answers are based solely on the course material and the risk of having the LLM hallucinate is thus minimal.
 
-It can be accessed at [Book Assistant](https://ai-demo.fr)
+It can be accessed at [Book Assistant](http://ai-demo.fr)
 
 This submission demonstrates that it is possible to enhance class material at a very low-cost to the great benefit of students around the world.
 
@@ -22,6 +22,14 @@ The emphasis is here on the cost effectiveness and ease-of-use of the system.
 For demonstration purposes, the application is currently using two freely available javascript books. Questions should thus be about Javascript. If a question is not about Javascript or if the answer cannot be found in the source material, the RAG will answer that it does not know.
 
 Answers end with a word of encouragement for the student to keep learning.
+
+## Technical Category
+
+Build
+
+## Challenge Topic
+
+Education: Help low resources students access and study from teachers' books. 
 
 ## Technical solution
 
@@ -46,7 +54,6 @@ For the LLM part of the RAG chain, assuming the use of the GPT 3.5 API at prices
 A ballpark estimate of the system cost (server + API usage) would thus be around 15 cents per student per month. The total cost for a school with 100 students would thus be around 15$ per month.
 
 
-
 ## future work
 
 - In the web application, add a sign up and logging in for students and teachers
@@ -59,3 +66,33 @@ A ballpark estimate of the system cost (server + API usage) would thus be around
 
 - Benchmarking load and response time of the server with increasing numbers of users
 
+## Project Repository URL
+
+https://github.com/davidleon123/Book-Assistant.git
+
+## Deployment URL
+
+[Book Assistant](http://ai-demo.fr)
+
+## Project Video File
+
+[video](https://drive.google.com/file/d/1aOG-6w_q0o40pn7BRT7aXSj9X1mwIMrh/view?usp=sharing)
+
+## Team members
+
+[Dea María Léon](https://github.com/DeaMariaLeon)
+[David Leon](https://github.com/davidleon123)
+
+## Tech stack
+
+Chroma
+Langchain
+GPT3.5 API
+Django
+Linux
+nginx
+gunicorn
+Simplecss
+css
+html
+Python
