@@ -5,7 +5,7 @@
 
 We built a web-based application that provides an easy-to-use RAG to allow students to learn class material more quickly.
 
-One of the benefits of using the RAG instead of having students use an LLM chatboat like chatGPT is that the answers are based solely on the course material and the risk of having the LLM hallucinate is thus minimal.
+One of the benefits of using the RAG instead of having students use an LLM chatbot like chatGPT is that the answers are based solely on the course material and the risk of having the LLM hallucinate is thus minimal.
 
 It can be accessed at [Book Assistant](https://ai-demo.fr)
 
