@@ -24,10 +24,6 @@ For demonstration purposes, the application is currently using two freely availa
 
 Answers end with a word of encouragement for the student to keep learning.
 
-## Technical Category
-
-Build
-
 ## Challenge Topic
 
 Education: Help low resources students access and study from teachers' books. 
@@ -55,7 +51,7 @@ For the LLM part of the RAG chain, assuming the use of the GPT 3.5 API at prices
 A ballpark estimate of the system cost (server + API usage) would thus be around 15 cents per student per month. The total cost for a school with 100 students would thus be around 15$ per month.
 
 
-## future work
+## Future work
 
 - In the web application, add a sign up and logging in for students and teachers
 
