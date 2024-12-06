@@ -5,7 +5,7 @@ from django.template import loader
 import db_handler as db
 
 from .forms import QuestionForm
-
+import logger
 
 def generate_answer(question):
     
@@ -22,6 +22,7 @@ def index(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.cleaned_data['question']
+            logger.log_question(question)
             answer = generate_answer(question)
             # pass the answer to the context
             return render(request, 'phase1/index.html', {'form': form, 'answer': answer})
