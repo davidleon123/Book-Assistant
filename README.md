@@ -1,4 +1,3 @@
-# Submission NUMHACK-2024 build category
 # Project Name: Book Assistant
 
 ## Application Description
@@ -24,10 +23,6 @@ The emphasis is here on the cost effectiveness and ease-of-use of the system.
 For demonstration purposes, the application is currently using two freely available javascript books. Questions should thus be about Javascript. If a question is not about Javascript or if the answer cannot be found in the source material, the RAG will answer that it does not know.
 
 Answers end with a word of encouragement for the student to keep learning.
-
-## Technical Category
-
-Build
 
 ## Challenge Topic
 
@@ -56,7 +51,7 @@ For the LLM part of the RAG chain, assuming the use of the GPT 3.5 API at prices
 A ballpark estimate of the system cost (server + API usage) would thus be around 15 cents per student per month. The total cost for a school with 100 students would thus be around 15$ per month.
 
 
-## future work
+## Future work
 
 - In the web application, add a sign up and logging in for students and teachers
 
@@ -90,24 +85,14 @@ Please note that https access has not yet been activated and you should access t
 
 ## Tech stack
 
-Chroma
-
-Langchain
-
-GPT3.5 API
-
-Django
-
-Linux
-
-nginx
-
-gunicorn
-
-Simplecss
-
-css
-
-html
-
-Python
+- Chroma
+- Langchain
+- GPT3.5 API
+- Django
+- Linux
+- nginx
+- gunicorn
+- Simplecss
+- css
+- html
+- Python
