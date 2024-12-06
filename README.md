@@ -1,4 +1,3 @@
-# Submission NUMHACK-2024 build category
 # Project Name: Book Assistant
 
 ## Application Description
@@ -90,24 +89,14 @@ Please note that https access has not yet been activated and you should access t
 
 ## Tech stack
 
-Chroma
-
-Langchain
-
-GPT3.5 API
-
-Django
-
-Linux
-
-nginx
-
-gunicorn
-
-Simplecss
-
-css
-
-html
-
-Python
+- Chroma
+- Langchain
+- GPT3.5 API
+- Django
+- Linux
+- nginx
+- gunicorn
+- Simplecss
+- css
+- html
+- Python
