@@ -10,16 +10,18 @@ from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv, find_dotenv
 import os
 
+from logger import log_question
+
+from config import PROJECT_ROOT
+
 if TYPE_CHECKING:
     from langchain_core.documents import Document
     
 load_dotenv(find_dotenv()) # read local .env file
 
 
-
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 db_name = "programming_DB"
-persist_directory = os.path.join(project_root, db_name) # where to store the database
+persist_directory = os.path.join(PROJECT_ROOT, db_name) # where to store the database
 
 EMBEDDING = OpenAIEmbeddings()
 
@@ -78,7 +80,7 @@ def _add_documents(documents: List[Document])->List[str]:
 
 
 def load(book_name:str)->None:
-    doc_to_load_path = os.path.join(project_root, "book_upload", book_name)
+    doc_to_load_path = os.path.join(PROJECT_ROOT, "book_upload", book_name)
     docs = _load_data(doc_to_load_path)
     print(len(docs))
     print(docs[0].page_content[0:10])
@@ -89,7 +91,7 @@ def load(book_name:str)->None:
     print(len(ids))
     print(VECTORDB._collection.count())
 
-DEBUG_ANSWER_PATH = os.path.join(project_root, "debug_answer.pkl")
+DEBUG_ANSWER_PATH = os.path.join(PROJECT_ROOT, "debug_answer.pkl")
 
 
 def answer_question(question: str) -> Dict[str, Any]:
@@ -152,6 +154,7 @@ def main()->None:
     #load('Coding with JavaScript For Dummies.pdf')
     
     print(question)
+    log_question(question)
     answer = answer_question(question)
     display_answer(answer)
     save_answer(answer)
