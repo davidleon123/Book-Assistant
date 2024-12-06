@@ -17,10 +17,16 @@
         }
         header.top-header { background-color: rgb(179, 201, 201);
         }
+        header.top-header p { 
+            background-color: inherit;
+            font-size: smaller;
+        }
+
+
         .answer-container {
             background-color: rgba(200, 200, 200); /* Gray background with some transparency */
-            padding: 10px;
-            border-radius: 5px;
+            padding: 3%;
+            border-radius: 2%;
             margin-top: 20px;
         }
         ul.source {
@@ -29,9 +35,10 @@
             border-style: dashed;
             background-color: rgba(200, 200, 200, 0.8);
         }
-        h2.question, p {
+        .question {
             color: rgb(17, 16, 16);
-            background-color: rgba(200, 200, 200, 0.8);
+            background-color: rgba(179, 201, 201);
+            border-radius: .5rem;
         }
     </style>
 </head>
@@ -40,9 +47,12 @@
     
     <header class="top-header">
     <h1>AI Book Assistant</h1>
+    <p>Available Books: Eloquent JavaScript and Coding with JavaScript For Dummies  </p>
     </header>
     <main>
-        <h2 class="question">Enter your Javascript question:</h2>
+    <div class="question">
+        <h2 >Enter your JavaScript question:</h2>
+    </div>
     <form method="post">
         {% csrf_token %}
         {{ form }}
@@ -74,10 +84,5 @@
         
     {% endif %}
     </main>
-    <footer>
-        <h4>
-        <p>Available Books: Eloquent_JavaScript and Coding with JavaScript For Dummies  </p>
-    </h4>
-    </footer>
 </body>
 </html>
