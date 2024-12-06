@@ -38,14 +38,17 @@ if socket.gethostname().startswith('vps'):
     CSRF_TRUSTED_ORIGINS = ['https://ai-demo.fr', 'https://www.ai-demo.fr']
     load_dotenv(dotenv_path=BASE_DIR/".env")
     SECRET_KEY = os.getenv("SECRET_KEY")
-    STATIC_ROOT = "/home/ubuntu/www/ai-demo.fr/static/" 
+    STATIC_ROOT = "/var/www/ai-demo.fr/static"
     STATIC_URL = "/static/"
+    MEDIA_ROOT = "/var/www/ai-demo.com/media"
+    MEDIA_URL = '/media/'
 else:
     DEBUG = True
     ALLOWED_HOSTS = []
     SECRET_KEY = 'django-insecure--vdawxap(t_*2(kfc153r+#c3*rsws$a$da#ft9i76h#)6lb(r'
     
     STATIC_URL = 'static/'
+
 
 # This will change
 ENGINE = 'django.db.backends.sqlite3'
@@ -138,11 +141,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    "/var/www/static/",
-    BASE_DIR / "phase1/static",
-]
+#STATICFILES_DIRS = [
+#    BASE_DIR / "static",
+#    "/var/www/static/",
+#    BASE_DIR / "phase1/static",
+#]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
