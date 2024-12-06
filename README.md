@@ -5,9 +5,11 @@
 
 We built a web-based application that provides an easy-to-use RAG to allow students to learn class material more quickly.
 
-One of the benefits of using the RAG instead of having students use an LLM chatboat like chatGPT is that the answers are based solely on the course material and the risk of having the LLM hallucinate is thus minimal.
+One of the benefits of using the RAG instead of having students use an LLM chatbot like chatGPT is that the answers are based solely on the course material and the risk of having the LLM hallucinate is thus minimal.
 
-It can be accessed at [Book Assistant](http://ai-demo.fr)
+It can be accessed at [http://ai-demo.fr](http://ai-demo.fr)
+
+Please note that https access has not yet been activated and you should access the application with http only.
 
 This submission demonstrates that it is possible to enhance class material at a very low-cost to the great benefit of students around the world.
 
@@ -72,7 +74,9 @@ https://github.com/davidleon123/Book-Assistant.git
 
 ## Deployment URL
 
-[Book Assistant](http://ai-demo.fr)
+[http://ai-demo.fr](http://ai-demo.fr)
+
+Please note that https access has not yet been activated and you should access the application with http only.
 
 ## Project Video File
 
@@ -81,18 +85,29 @@ https://github.com/davidleon123/Book-Assistant.git
 ## Team members
 
 [Dea María Léon](https://github.com/DeaMariaLeon)
+
 [David Leon](https://github.com/davidleon123)
 
 ## Tech stack
 
 Chroma
+
 Langchain
+
 GPT3.5 API
+
 Django
+
 Linux
+
 nginx
+
 gunicorn
+
 Simplecss
+
 css
+
 html
+
 Python

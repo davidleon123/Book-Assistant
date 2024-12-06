@@ -35,6 +35,7 @@ if socket.gethostname().startswith('vps'):
 
     DEBUG = False
     ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
+    CSRF_TRUSTED_ORIGINS = ['https://ai-demo.fr', 'https://www.ai-demo.fr']
     load_dotenv(dotenv_path=BASE_DIR/".env")
     SECRET_KEY = os.getenv("SECRET_KEY")
     STATIC_ROOT = "/home/ubuntu/www/ai-demo.fr/static/" 
