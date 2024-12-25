@@ -69,9 +69,7 @@ https://github.com/davidleon123/Book-Assistant.git
 
 ## Deployment URL
 
-[http://ai-demo.fr](http://ai-demo.fr)
-
-Please note that https access has not yet been activated and you should access the application with http only.
+[https://ai-demo.fr](https://ai-demo.fr)
 
 ## Project Video File
 
