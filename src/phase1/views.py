@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect
 
-import ai_module.db_handler as db
+from ai_module.db_handler import load_answer
+from ai_module.db_handler import answer_question
+from ai_module.db_handler import format_answer_django
+
 
 from .forms import QuestionForm
-import ai_module.logger as logger
+from ai_module.logger import log_question
 
 
 def generate_answer(question):
     
-    answer = db.answer_question(question)
-    #answer = db.load_answer()
-    return db.format_answer_django(answer)
+    answer = answer_question(question)
+    #answer = load_answer()
+    return format_answer_django(answer)
   
 
 def index(request):
@@ -20,7 +23,7 @@ def index(request):
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.cleaned_data['question']
-            logger.log_question(question)
+            log_question(question)
             answer = generate_answer(question)
             # pass the answer to the context
             return render(request, 'phase1/index.html', {'form': form, 'answer': answer})
