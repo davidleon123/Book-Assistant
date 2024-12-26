@@ -10,9 +10,9 @@ from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv, find_dotenv
 import os
 
-from logger import log_question
+from .logger import log_question
 
-from config import PROJECT_ROOT
+from .config import PROJECT_ROOT
 
 if TYPE_CHECKING:
     from langchain_core.documents import Document

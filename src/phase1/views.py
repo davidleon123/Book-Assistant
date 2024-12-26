@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
 
-import db_handler as db
+import ai_module.db_handler as db
 
 from .forms import QuestionForm
-import logger
+import ai_module.logger as logger
+
 
 def generate_answer(question):
     
@@ -13,7 +12,6 @@ def generate_answer(question):
     #answer = db.load_answer()
     return db.format_answer_django(answer)
   
-
 
 def index(request):
     if request.method == 'POST':
