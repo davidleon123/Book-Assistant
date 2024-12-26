@@ -2,7 +2,7 @@ from __future__ import annotations
 import logging
 import os
 from typing import TYPE_CHECKING
-from config import PROJECT_ROOT 
+from .config import PROJECT_ROOT
 
 if TYPE_CHECKING:
     from logging import Logger
