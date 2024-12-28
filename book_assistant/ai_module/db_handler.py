@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 from typing import TYPE_CHECKING, List, Dict, Any
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
@@ -12,7 +13,6 @@ from pathlib import Path
 
 from book_assistant.ai_module.logger import log_question
 
-from book_assistant.ai_module.config import BASE_DIR
 
 if TYPE_CHECKING:
     from langchain_core.documents import Document
@@ -21,6 +21,12 @@ load_dotenv(find_dotenv())  # read local .env file
 
 
 db_name = "programming_DB"
+base_dir = os.getenv('BASE_DIR')
+
+if base_dir is None:
+    raise ValueError("BASE_DIR environment variable is not set")
+
+BASE_DIR = Path(base_dir)
 persist_directory = BASE_DIR / db_name  # where to store the database
 
 EMBEDDING = OpenAIEmbeddings()
@@ -39,7 +45,7 @@ llm = ChatOpenAI(
 
 # Build prompt
 template = """You are teaching programming. Use the following pieces of context to answer the question at the end.
- If the answer is not in the context, just say that you don't know, don't try to make up an answer. 
+ If no context is provided, just say that you don't know, don't try to make up an answer. 
  Use three sentences maximum. 
  Keep the answer as concise as possible. Use no more than 70 words and say how many words you used.
  Always give a positive word of encouragement to the student after your answer, extolling
@@ -153,11 +159,13 @@ def display_answer(result: Dict[str, Any]) -> None:
 
 
 questions = ["what is a javascript closure?",
+            "how do I create a timestamp with javascript?",
+            "what is a list in javascript",
              "how to get started with javascript?",
              "how to use CSS with javascript?",
              "how to reverse an array?",
              ]
-question = questions[0]
+question = questions[1]
 
 
 def main() -> None:
