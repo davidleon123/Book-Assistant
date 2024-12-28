@@ -12,6 +12,7 @@ from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
 
 from book_assistant.ai_module.logger import log_question
+from book_assistant.ai_module.config import BASE_DIR
 
 
 if TYPE_CHECKING:
@@ -21,12 +22,6 @@ load_dotenv(find_dotenv())  # read local .env file
 
 
 db_name = "programming_DB"
-base_dir = os.getenv('BASE_DIR')
-
-if base_dir is None:
-    raise ValueError("BASE_DIR environment variable is not set")
-
-BASE_DIR = Path(base_dir)
 persist_directory = BASE_DIR / db_name  # where to store the database
 
 EMBEDDING = OpenAIEmbeddings()
