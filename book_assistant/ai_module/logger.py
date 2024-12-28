@@ -3,18 +3,11 @@ import logging
 import os
 from pathlib import Path
 from typing import TYPE_CHECKING
-#from .config import BASE_DIR
+from .config import BASE_DIR
 
 if TYPE_CHECKING:
     from logging import Logger
-# Ensure the log directory exists
 
-base_dir = os.getenv('BASE_DIR')
-
-if base_dir is None:
-    raise ValueError("BASE_DIR environment variable is not set")
-
-BASE_DIR = Path(base_dir)
 log_directory = BASE_DIR / 'log'
 log_directory.mkdir(parents=True, exist_ok=True)
 
