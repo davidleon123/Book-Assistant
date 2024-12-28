@@ -2,12 +2,12 @@ from __future__ import annotations
 import logging
 import os
 from typing import TYPE_CHECKING
-from .config import PROJECT_ROOT
+from .config import BASE_DIR
 
 if TYPE_CHECKING:
     from logging import Logger
 # Ensure the log directory exists
-log_directory = os.path.join(PROJECT_ROOT, 'log')
+log_directory = os.path.join(BASE_DIR, 'log')
 os.makedirs(log_directory, exist_ok=True)
 
 # Configure logging

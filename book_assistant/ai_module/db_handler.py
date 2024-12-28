@@ -10,9 +10,9 @@ from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
 
-from .logger import log_question
+from book_assistant.ai_module.logger import log_question
 
-from .config import PROJECT_ROOT
+from book_assistant.ai_module.config import BASE_DIR
 
 if TYPE_CHECKING:
     from langchain_core.documents import Document
@@ -21,7 +21,7 @@ load_dotenv(find_dotenv())  # read local .env file
 
 
 db_name = "programming_DB"
-persist_directory = PROJECT_ROOT / db_name  # where to store the database
+persist_directory = BASE_DIR / db_name  # where to store the database
 
 EMBEDDING = OpenAIEmbeddings()
 
@@ -39,7 +39,7 @@ llm = ChatOpenAI(
 
 # Build prompt
 template = """You are teaching programming. Use the following pieces of context to answer the question at the end.
- If you don't know the answer, just say that you don't know, don't try to make up an answer. 
+ If the answer is not in the context, just say that you don't know, don't try to make up an answer. 
  Use three sentences maximum. 
  Keep the answer as concise as possible. Use no more than 70 words and say how many words you used.
  Always give a positive word of encouragement to the student after your answer, extolling
@@ -53,7 +53,7 @@ Question: {question}
 Helpful Answer:"""
 QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
 
-qa_chain = RetrievalQA.from_chain_type(
+QA_CHAIN = RetrievalQA.from_chain_type(
     llm,
     retriever=VECTORDB.as_retriever(),
     return_source_documents=True,
@@ -61,7 +61,7 @@ qa_chain = RetrievalQA.from_chain_type(
 )
 
 
-def _load_data(file_path: str)->List[Document]:
+def _load_data(file_path: str) -> List[Document]:
     loader = PyPDFLoader(file_path)
     docs = loader.load()
     return docs
@@ -82,7 +82,7 @@ def _add_documents(documents: List[Document]) -> List[str]:
 
 
 def load(book_name: str) -> None:
-    doc_to_load_path = PROJECT_ROOT / "book_upload" / book_name
+    doc_to_load_path = BASE_DIR / "book_upload" / book_name
     docs = _load_data(str(doc_to_load_path))
     print(len(docs))
     print(docs[0].page_content[0:10])
@@ -94,12 +94,11 @@ def load(book_name: str) -> None:
     print(VECTORDB._collection.count())
 
 
-DEBUG_ANSWER_PATH = PROJECT_ROOT / "debug_answer.pkl"
+DEBUG_ANSWER_PATH = BASE_DIR / "debug_answer.pkl"
 
 
 def answer_question(question: str) -> Dict[str, Any]:
-    # result = qa_chain({"query": question})
-    result = qa_chain.invoke({"query": question})
+    result = QA_CHAIN.invoke({"query": question})
     return result
 
 
@@ -162,8 +161,6 @@ question = questions[0]
 
 
 def main() -> None:
-    # load('Coding with JavaScript For Dummies.pdf')
-    
     print(question)
     log_question(question)
     answer = answer_question(question)

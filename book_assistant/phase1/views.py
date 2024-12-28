@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 
-from ai_module.db_handler import load_answer
-from ai_module.db_handler import answer_question
-from ai_module.db_handler import format_answer_django
+from book_assistant.ai_module.db_handler import load_answer
+from book_assistant.ai_module.db_handler import answer_question
+from book_assistant.ai_module.db_handler import format_answer_django
 
 
 from .forms import QuestionForm
-from ai_module.logger import log_question
+from book_assistant.ai_module.logger import log_question
 
 
 def generate_answer(question):
