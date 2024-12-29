@@ -18,8 +18,6 @@ from book_assistant.ai_module.config import BASE_DIR
 if TYPE_CHECKING:
     from langchain_core.documents import Document
     
-load_dotenv(find_dotenv())  # read local .env file
-
 
 db_name = "programming_DB"
 persist_directory = BASE_DIR / db_name  # where to store the database
