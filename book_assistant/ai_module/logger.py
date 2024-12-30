@@ -1,21 +1,22 @@
 from __future__ import annotations
 import logging
 import os
+from pathlib import Path
 from typing import TYPE_CHECKING
-from .config import PROJECT_ROOT
+from .config import BASE_DIR
 
 if TYPE_CHECKING:
     from logging import Logger
-# Ensure the log directory exists
-log_directory = os.path.join(PROJECT_ROOT, 'log')
-os.makedirs(log_directory, exist_ok=True)
+
+log_directory = BASE_DIR / 'log'
+log_directory.mkdir(parents=True, exist_ok=True)
 
 # Configure logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 # File handler for logging questions
-file_handler = logging.FileHandler(os.path.join(log_directory, 'questions.log'))
+file_handler = logging.FileHandler(log_directory / 'questions.log')
 formatter = logging.Formatter('%(asctime)s - %(message)s')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)

@@ -12,16 +12,20 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 import socket
 
-load_dotenv()
 
 #if not os.environ['API_TOCKEN']:
 #    raise Exception("API_TOKEN not set")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+base_dir = os.getenv('BASE_DIR')
+
+if base_dir is None:
+    raise ValueError("BASE_DIR environment variable is not set")
+
+DJANGO_BASE_DIR = Path(base_dir) / "book_assistant"
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +40,6 @@ if socket.gethostname().startswith('vps'):
     DEBUG = False
     ALLOWED_HOSTS = [os.getenv("ALLOWED_HOSTS")]
     CSRF_TRUSTED_ORIGINS = ['https://ai-demo.fr', 'https://www.ai-demo.fr']
-    load_dotenv(dotenv_path=BASE_DIR/".env")
     SECRET_KEY = os.getenv("SECRET_KEY")
     STATIC_ROOT = "/var/www/ai-demo.fr/static"
     STATIC_URL = "/static/"
@@ -80,7 +83,7 @@ ROOT_URLCONF = 'reader.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'phase1/templates'],
+        'DIRS': [DJANGO_BASE_DIR / 'phase1/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,7 +105,7 @@ WSGI_APPLICATION = 'reader.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': DJANGO_BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -142,8 +145,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    BASE_DIR / "phase1/static",
+    DJANGO_BASE_DIR / "static",
+    DJANGO_BASE_DIR / "phase1/static",
 ]
 
 # Default primary key field type
