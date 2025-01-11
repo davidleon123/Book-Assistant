@@ -150,26 +150,3 @@ def format_answer_django(result: Dict[str, Any],
 def display_answer(result: Dict[str, Any]) -> None:
     print(format_answer(result))
 
-
-questions = ["what is a javascript closure?",
-            "how do I create a timestamp with javascript?",
-            "what is a list in javascript",
-             "how to get started with javascript?",
-             "how to use CSS with javascript?",
-             "how to reverse an array?",
-             ]
-question = questions[1]
-
-
-def main() -> None:
-    print(question)
-    log_question(question)
-    answer = answer_question(question)
-    display_answer(answer)
-    save_answer(answer)
-    # saved_answer = load_answer()
-    # display_answer(saved_answer)
-    
-
-if __name__ == "__main__":
-    main()
