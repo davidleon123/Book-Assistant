@@ -1,5 +1,4 @@
 from __future__ import annotations
-import os
 from typing import TYPE_CHECKING, List, Dict, Any
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
@@ -8,10 +7,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 
-from dotenv import load_dotenv, find_dotenv
 from pathlib import Path
 
-from book_assistant.ai_module.logger import log_question
 from book_assistant.ai_module.config import BASE_DIR
 
 
