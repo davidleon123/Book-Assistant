@@ -1,0 +1,2 @@
+recursive-include book_assistant/phase1/static *
+recursive-include book_assistant/phase1/templates *
